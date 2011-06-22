@@ -1,6 +1,5 @@
 package com.bizo.asperatus.jmx;
 
-import static com.bizo.asperatus.model.Unit.Count;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -17,6 +16,7 @@ import org.junit.Test;
 
 import com.bizo.asperatus.jmx.configuration.MetricConfiguration;
 import com.bizo.asperatus.model.Dimension;
+import com.bizo.asperatus.model.Unit;
 import com.bizo.asperatus.tracker.MetricTracker;
 import com.google.common.collect.ImmutableList;
 
@@ -25,13 +25,14 @@ public class MetricRunnableTest {
   private static final String objectName = "domain: key1 = value1, key2 = value2";
   private static final String attribute = "attribute";
   private static final String metric = "metric";
+  private static final Unit unit = Unit.BytesSecond;
   private static final int frequency = 5;
   private static final String comment = "This is a test. This is only a test.";
   private final MetricConfiguration config = new MetricConfiguration(
     objectName,
     attribute,
     metric,
-    Count,
+    unit,
     frequency,
     comment);
 
@@ -55,7 +56,7 @@ public class MetricRunnableTest {
 
     runnable.run();
 
-    verify(tracker).track("metric", 100, dimensions);
+    verify(tracker).track("metric", 100, unit, dimensions);
     verify(handler, never()).handleError(anyString(), any(Throwable.class));
   }
 
@@ -65,7 +66,7 @@ public class MetricRunnableTest {
 
     runnable.run();
 
-    verify(tracker, never()).track(anyString(), any(Number.class), any(List.class));
+    verify(tracker, never()).track(anyString(), any(Number.class), any(Unit.class), any(List.class));
     verify(handler).handleError(anyString(), any(Throwable.class));
   }
 
@@ -76,7 +77,7 @@ public class MetricRunnableTest {
 
     runnable.run();
 
-    verify(tracker, never()).track(anyString(), any(Number.class), any(List.class));
+    verify(tracker, never()).track(anyString(), any(Number.class), any(Unit.class), any(List.class));
     verify(handler).handleError(anyString(), eq(e));
   }
 
@@ -84,11 +85,11 @@ public class MetricRunnableTest {
   public void testTrackerException() throws Exception {
     final RuntimeException e = new RuntimeException("DIE!");
     when(server.getAttribute(new ObjectName(objectName), attribute)).thenReturn(100);
-    doThrow(e).when(tracker).track(anyString(), any(Number.class), any(List.class));
+    doThrow(e).when(tracker).track(anyString(), any(Number.class), any(Unit.class), any(List.class));
 
     runnable.run();
 
-    verify(tracker).track("metric", 100, dimensions);
+    verify(tracker).track("metric", 100, unit, dimensions);
     verify(handler).handleError(anyString(), eq(e));
   }
 }

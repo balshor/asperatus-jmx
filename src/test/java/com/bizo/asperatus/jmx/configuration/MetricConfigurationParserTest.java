@@ -25,7 +25,7 @@ public class MetricConfigurationParserTest {
       List<MetricConfiguration> configs = parser.get();
 
       assertNotNull(configs);
-      assertEquals(5, configs.size());
+      assertEquals(6, configs.size());
 
       MetricConfiguration nonHeapConfig =
         new MetricConfiguration("java.lang:type=Memory", "NonHeapMemoryUsage", "NonHeapMemoryUsage", Count, 60, null);
@@ -55,12 +55,21 @@ public class MetricConfigurationParserTest {
           Count,
           60,
           "number of threads");
+      MetricConfiguration fakeMeterConfig =
+        new MetricConfiguration(
+          "com.bizo:type=FakeMeter",
+          "Speed",
+          "FakeMeterSpeed",
+          BytesSecond,
+          60,
+          "this is a made-up metric for testing");
 
       assertTrue(configs.contains(nonHeapConfig));
       assertTrue(configs.contains(heapConfig));
       assertTrue(configs.contains(fileDescriptorConfig));
       assertTrue(configs.contains(systemLoadConfig));
       assertTrue(configs.contains(threadConfig));
+      assertTrue(configs.contains(fakeMeterConfig));
     } finally {
       reader.close();
     }

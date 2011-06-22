@@ -23,7 +23,7 @@
   <dependencies defaultconfmapping="sources->sources();%->default" defaultconf="default;sources">
     <!-- default (compile, test, runtime) dependencies -->
     <dependency org="apache" name="commons-lang" rev="2.6"/>
-    <dependency org="bizo.com" name="asperatus" rev="latest.integration" />
+    <dependency org="bizo.com" name="asperatus" rev="2.0-dev-20110620233355" />
     <dependency org="google" name="google-collect" rev="1.0"/>
     <dependency org="json.org" name="json-simple" rev="1.1" />
 

@@ -34,5 +34,13 @@
     "unit" : "Count",
     "frequency" : 60,
     "comment" : "number of threads"
+  },
+  {
+    "objectName" : "com.bizo:type=FakeMeter",
+    "attribute" : "Speed",
+    "metricName" : "FakeMeterSpeed",
+    "unit" : "Bytes/Second",
+    "frequency" : 60,
+    "comment" : "this is a made-up metric for testing"
   }
 ]

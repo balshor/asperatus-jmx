@@ -60,7 +60,7 @@ public class MetricRunnable implements Runnable {
     try {
       final Object result = mBeanServer.getAttribute(jmxName, config.getAttribute());
       if (result instanceof Number) {
-        tracker.track(config.getMetricName(), (Number) result, dimensions);
+        tracker.track(config.getMetricName(), (Number) result, config.getUnit(), dimensions);
       } else {
         final String resultType = result != null ? result.getClass().getName() : "null";
         errorHandler.handleError(

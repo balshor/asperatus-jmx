@@ -55,7 +55,7 @@ public class MetricConfigurationParser implements Supplier<List<MetricConfigurat
     final String unitString = requiredString(json, "unit");
     final Unit unit;
     try {
-      unit = Unit.valueOf(unitString);
+      unit = Unit.fromValue(unitString);
     } catch (Exception e) {
       throw new MetricConfigurationException("Invalid unit " + unitString, e);
     }
