@@ -1,0 +1,46 @@
+[
+  {
+    "objectName" : "java.lang:type=Memory",
+    "attribute" : "NonHeapMemoryUsage",
+    "metricName" : "NonHeapMemoryUsage",
+    "unit" : "Count"
+  },
+  {
+    "objectName" : "java.lang:type=Memory",
+    "attribute" : "HeapMemoryUsage",
+    "metricName" : "HeapMemoryUsage",
+    "unit" : "Count",
+    "frequency" : 60,
+  },
+  {
+    "objectName" : "java.lang:type=OperatingSystem",
+    "attribute" : "OpenFileDescriptorCount",
+    "metricName" : "OpenFileDescriptors",
+    "unit" : "Count",
+    "comment" : "number of open file descriptors"
+  },
+  {
+    "objectName" : "java.lang:type=OperatingSystem",
+    "attribute" : "SystemLoadAverage",
+    "metricName" : "SystemLoadAverage",
+    "unit" : "Count",
+    "frequency" : 300,
+    "comment" : "average system load"
+  },
+  {
+    "objectName" : "java.lang:type=Threading",
+    "attribute" : "ThreadCount",
+    "metricName" : "ThreadCount",
+    "unit" : "Count",
+    "frequency" : 60,
+    "comment" : "number of threads"
+  },
+  {
+    "objectName" : "com.bizo:type=FakeMeter",
+    "attribute" : "Speed",
+    "metricName" : "FakeMeterSpeed",
+    "unit" : "Bytes/Second",
+    "frequency" : 60,
+    "comment" : "this is a made-up metric for testing"
+  }
+]
