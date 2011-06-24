@@ -19,7 +19,7 @@ public class ConfigurationSuppliersTest {
 
   @Test
   public void testClasspathConfigurationSupplier() throws Exception {
-    ClasspathConfigurationSupplier supplier = new ClasspathConfigurationSupplier(classpathConfigLocation);
+    final ClasspathConfigurationSupplier supplier = new ClasspathConfigurationSupplier(classpathConfigLocation);
     assertConfigurations(supplier.get());
   }
 
@@ -30,45 +30,62 @@ public class ConfigurationSuppliersTest {
 
   @Test
   public void testParser() throws Exception {
-    BufferedReader reader = new BufferedReader(new FileReader(nonClasspathConfigLocation));
+    final BufferedReader reader = new BufferedReader(new FileReader(nonClasspathConfigLocation));
     try {
-      MetricConfigurationParser parser = new MetricConfigurationParser(reader);
+      final MetricConfigurationParser parser = new MetricConfigurationParser(reader);
       assertConfigurations(parser.get());
     } finally {
       reader.close();
     }
   }
 
-  private static void assertConfigurations(List<MetricConfiguration> configs) {
+  private static void assertConfigurations(final List<MetricConfiguration> configs) {
     assertNotNull(configs);
     assertEquals(6, configs.size());
 
-    MetricConfiguration nonHeapConfig =
-      new MetricConfiguration("java.lang:type=Memory", "NonHeapMemoryUsage", "NonHeapMemoryUsage", Count, 60, null);
-    MetricConfiguration heapConfig =
-      new MetricConfiguration("java.lang:type=Memory", "HeapMemoryUsage", "HeapMemoryUsage", Count, 60, null);
-    MetricConfiguration fileDescriptorConfig =
+    final MetricConfiguration nonHeapConfig =
+      new MetricConfiguration(
+        "java.lang:type=Memory",
+        "NonHeapMemoryUsage",
+        "used",
+        "NonHeapMemoryUsage",
+        Count,
+        60,
+        null);
+    final MetricConfiguration heapConfig =
+      new MetricConfiguration("java.lang:type=Memory", "HeapMemoryUsage", "used", "HeapMemoryUsage", Count, 60, null);
+    final MetricConfiguration fileDescriptorConfig =
       new MetricConfiguration(
         "java.lang:type=OperatingSystem",
         "OpenFileDescriptorCount",
+        null,
         "OpenFileDescriptors",
         Count,
         60,
         "number of open file descriptors");
-    MetricConfiguration systemLoadConfig =
+    final MetricConfiguration systemLoadConfig =
       new MetricConfiguration(
         "java.lang:type=OperatingSystem",
         "SystemLoadAverage",
+        null,
         "SystemLoadAverage",
         Count,
         300,
         "average system load");
-    MetricConfiguration threadConfig =
-      new MetricConfiguration("java.lang:type=Threading", "ThreadCount", "ThreadCount", Count, 60, "number of threads");
-    MetricConfiguration fakeMeterConfig =
+    final MetricConfiguration threadConfig =
+      new MetricConfiguration(
+        "java.lang:type=Threading",
+        "ThreadCount",
+        null,
+        "ThreadCount",
+        Count,
+        60,
+        "number of threads");
+    final MetricConfiguration fakeMeterConfig =
       new MetricConfiguration(
         "com.bizo:type=FakeMeter",
         "Speed",
+        null,
         "FakeMeterSpeed",
         BytesSecond,
         60,

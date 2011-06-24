@@ -27,41 +27,47 @@ public class MetricConfigurationParser implements Supplier<List<MetricConfigurat
 
   @Override
   public List<MetricConfiguration> get() {
-    ImmutableList.Builder<MetricConfiguration> builder = ImmutableList.builder();
-    JSONParser parser = new JSONParser();
+    final ImmutableList.Builder<MetricConfiguration> builder = ImmutableList.builder();
+    final JSONParser parser = new JSONParser();
     try {
-      Object root = parser.parse(reader);
+      final Object root = parser.parse(reader);
       if (!(root instanceof JSONArray)) {
         throw new MetricConfigurationException("Root object of a metric configuration must be a JSON Array");
       }
-      for (Object item : (JSONArray) root) {
+      for (final Object item : (JSONArray) root) {
         if (!(item instanceof JSONObject)) {
           throw new MetricConfigurationException("Items in the root JSON array must be objects");
         }
         builder.add(parse((JSONObject) item));
       }
-    } catch (ParseException pe) {
+    } catch (final ParseException pe) {
       throw new MetricConfigurationException(pe);
-    } catch (IOException ioe) {
+    } catch (final IOException ioe) {
       throw new RuntimeException(ioe);
     }
     return builder.build();
   }
 
-  private MetricConfiguration parse(JSONObject json) {
+  private MetricConfiguration parse(final JSONObject json) {
     final String objectName = requiredString(json, "objectName");
     final String attribute = requiredString(json, "attribute");
+    final String compositeDataKey;
+    if (json.containsKey("compositeDataKey")) {
+      compositeDataKey = requiredString(json, "compositeDataKey");
+    } else {
+      compositeDataKey = null;
+    }
     final String metricName = requiredString(json, "metricName");
     final String unitString = requiredString(json, "unit");
     final Unit unit;
     try {
       unit = Unit.fromValue(unitString);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new MetricConfigurationException("Invalid unit " + unitString, e);
     }
     final int frequency;
     if (json.containsKey("frequency")) {
-      Object obj = json.get("frequency");
+      final Object obj = json.get("frequency");
       if (obj instanceof Number) {
         frequency = ((Number) obj).intValue();
       } else {
@@ -76,11 +82,11 @@ public class MetricConfigurationParser implements Supplier<List<MetricConfigurat
     } else {
       comment = null;
     }
-    return new MetricConfiguration(objectName, attribute, metricName, unit, frequency, comment);
+    return new MetricConfiguration(objectName, attribute, compositeDataKey, metricName, unit, frequency, comment);
   }
 
-  private String requiredString(JSONObject json, String key) {
-    Object obj = json.get(key);
+  private String requiredString(final JSONObject json, final String key) {
+    final Object obj = json.get(key);
     if (obj != null && obj instanceof String) {
       return (String) obj;
     }

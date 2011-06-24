@@ -5,6 +5,7 @@ import java.util.List;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+import javax.management.openmbean.CompositeData;
 
 import com.bizo.asperatus.jmx.configuration.MetricConfiguration;
 import com.bizo.asperatus.jmx.configuration.MetricConfigurationException;
@@ -59,16 +60,34 @@ public class MetricRunnable implements Runnable {
   public void run() {
     try {
       final Object result = mBeanServer.getAttribute(jmxName, config.getAttribute());
-      if (result instanceof Number) {
-        tracker.track(config.getMetricName(), (Number) result, config.getUnit(), dimensions);
+      if (config.getCompositeDataKey() != null) {
+        if (result instanceof CompositeData) {
+          final CompositeData cData = (CompositeData) result;
+          final Object compositeDataValue = cData.get(config.getCompositeDataKey());
+          if (compositeDataValue != null && compositeDataValue instanceof Number) {
+            track((Number) compositeDataValue);
+          }
+        } else {
+          typeError(result, CompositeData.class);
+        }
+      } else if (result instanceof Number) {
+        track((Number) result);
       } else {
-        final String resultType = result != null ? result.getClass().getName() : "null";
-        errorHandler.handleError(
-          String.format("Metric %s returned a %s, required a Number", config.getMetricName(), resultType),
-          null);
+        typeError(result, Number.class);
       }
     } catch (final Exception e) {
       errorHandler.handleError("Error while getting data for metric " + config.getMetricName(), e);
     }
+  }
+
+  private void track(final Number value) {
+    tracker.track(config.getMetricName(), value, config.getUnit(), dimensions);
+  }
+
+  private void typeError(final Object result, final Class<?> expectedType) {
+    final String actualType = result != null ? result.getClass().getName() : "null";
+    errorHandler.handleError(
+      String.format("Metric %s returned a %s, required a %s", config.getMetricName(), actualType, expectedType),
+      null);
   }
 }

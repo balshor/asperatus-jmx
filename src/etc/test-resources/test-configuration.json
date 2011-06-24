@@ -2,12 +2,14 @@
   {
     "objectName" : "java.lang:type=Memory",
     "attribute" : "NonHeapMemoryUsage",
+    "compositeDataKey" : "used",
     "metricName" : "NonHeapMemoryUsage",
     "unit" : "Count"
   },
   {
     "objectName" : "java.lang:type=Memory",
     "attribute" : "HeapMemoryUsage",
+    "compositeDataKey" : "used",
     "metricName" : "HeapMemoryUsage",
     "unit" : "Count",
     "frequency" : 60,

@@ -20,7 +20,6 @@ import org.junit.Test;
 import com.bizo.asperatus.jmx.configuration.MetricConfiguration;
 import com.google.common.collect.ImmutableList;
 
-
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class AsperatusJmxBridgeTest {
   private static String objectName(final int num) {
@@ -33,7 +32,7 @@ public class AsperatusJmxBridgeTest {
   private static final String comment = "This is a test. This is only a test.";
 
   private MetricConfiguration config(final int num) {
-    return new MetricConfiguration(objectName(num), attribute, metric, Count, baseFreq + num, comment);
+    return new MetricConfiguration(objectName(num), attribute, null, metric, Count, baseFreq + num, comment);
   }
 
   private Runnable noop() {

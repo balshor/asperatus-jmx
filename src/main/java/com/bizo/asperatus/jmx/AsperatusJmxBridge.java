@@ -94,7 +94,7 @@ public class AsperatusJmxBridge {
     }
     rotateFutures(futures);
   }
-  
+
   /** Alias for monitor(configurations). */
   public void setConfigurations(final Collection<MetricConfiguration> configurations) {
     monitor(configurations);
