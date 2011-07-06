@@ -66,6 +66,8 @@ public class MetricRunnable implements Runnable {
           final Object compositeDataValue = cData.get(config.getCompositeDataKey());
           if (compositeDataValue != null && compositeDataValue instanceof Number) {
             track((Number) compositeDataValue);
+          } else {
+            typeError(compositeDataValue, Number.class);
           }
         } else {
           typeError(result, CompositeData.class);
