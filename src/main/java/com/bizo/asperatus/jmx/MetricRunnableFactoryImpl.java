@@ -15,10 +15,10 @@ import com.bizo.asperatus.tracker.MetricTracker;
 /**
  * Factory for MetricRunnables.
  */
-public class MetricRunnableFactoryImpl implements MetricRunnableFactory {
+public final class MetricRunnableFactoryImpl implements MetricRunnableFactory {
   private MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
   private final MetricTracker tracker;
-  private List<Dimension> dimensions = MachineInfo.dimensions;
+  private List<Dimension> dimensions = MachineInfo.defaultDimensions;
   private ErrorHandler errorHandler = new LoggingErrorHandler(MetricRunnable.class, WARNING);
 
   public MetricRunnableFactoryImpl(final MetricTracker tracker) {
@@ -49,5 +49,4 @@ public class MetricRunnableFactoryImpl implements MetricRunnableFactory {
   public void setErrorHandler(final ErrorHandler errorHandler) {
     this.errorHandler = errorHandler;
   }
-
 }
