@@ -50,13 +50,14 @@ public class AsperatusJmxBridge {
     }
   }
 
+  private static final AtomicInteger sequenceNumGenerator = new AtomicInteger(0);
+
   /**
    * Constructs a default single-threaded scheduled executor service.
    */
   private static final ScheduledExecutorService defaultExecutor() {
     final ThreadFactory threadFactory = new ThreadFactory() {
       private static final String DEFAULT_THREAD_PREFIX = "asperatus-jmx-";
-      private final AtomicInteger sequenceNumGenerator = new AtomicInteger(0);
 
       @Override
       public Thread newThread(final Runnable r) {
