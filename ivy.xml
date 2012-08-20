@@ -35,6 +35,6 @@
     <dependency org="junit" name="junit" rev="4.8.2" conf="test"/>
     <dependency org="mockito" name="mockito" rev="1.8.5" conf="test"/>
     
-    <exclude org="google" name="google-collect" />
+    <exclude org="google" module="google-collect" />
   </dependencies>
 </ivy-module>
