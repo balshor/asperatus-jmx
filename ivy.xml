@@ -3,9 +3,7 @@
   xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 
   <info organisation="bizo.com" module="asperatus-jmx">
-    <license name="Bizo Internal Use Only" url="https://sites.google.com/a/bizo.com/tech/"/>
-    <ivyauthor name="darren"/>
-    <description>This module is indescribable!</description>
+    <license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html/"/>
   </info>
 
   <configurations>
@@ -24,16 +22,8 @@
     <!-- default (compile, test, runtime) dependencies -->
     <dependency org="apache" name="commons-lang" rev="2.6"/>
     <dependency org="bizo.com" name="asperatus" rev="2.0-dev-20110823171834" />
-    <dependency org="google" name="google-collect" rev="1.0"/>
+    <dependency org="google" name="guava" rev="12.0.1"/>
     <dependency org="json.org" name="json-simple" rev="1.1" />
-
-    <!-- uncomment the following lines to use the slf4j logging bridges -->
-    <!--
-      <dependency org="slf4j" name="slf4j" rev="1.5.11" conf="default->api,jdk14"/> 
-      <exclude org="log4j" module="log4j" />
-      <exclude org="apache" module="log4j" /> 
-      <exclude org="apache" module="commons-logging" />
-    -->
 
     <!-- build time only dependencies -->
     <dependency org="findbugs" name="findbugs" rev="1.3.9" conf="buildtime"/>
@@ -44,5 +34,7 @@
     <!-- test time only dependencies -->
     <dependency org="junit" name="junit" rev="4.8.2" conf="test"/>
     <dependency org="mockito" name="mockito" rev="1.8.5" conf="test"/>
+    
+    <exclude org="google" name="google-collect" />
   </dependencies>
 </ivy-module>
