@@ -9,9 +9,6 @@ import com.google.common.collect.ImmutableList;
 /**
  * This class simply supplies a static configuration loaded from the classpath. It is intended to simplify configuration
  * of the bridge in Spring-based applications where managing input streams is difficult to express.
- * 
- * @author darren
- * 
  */
 public class ClasspathConfigurationSupplier implements Supplier<List<MetricConfiguration>> {
   private final List<MetricConfiguration> defaultConfiguration;

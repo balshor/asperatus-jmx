@@ -4,9 +4,6 @@ import com.bizo.asperatus.model.Unit;
 
 /**
  * A MetricConfiguration is a simple bean holding a description of a JMX metric and the corresponding Asperatus metric.
- * 
- * @author darren
- * 
  */
 public class MetricConfiguration {
   /** JMX Object Name, eg "java.lang:type=OperatingSystem" */

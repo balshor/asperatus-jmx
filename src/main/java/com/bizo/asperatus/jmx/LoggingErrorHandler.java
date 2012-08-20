@@ -4,8 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This simple implementation of an ErrorHandler simply logs errors to the given logger at the specified fixed logging
- * level.
+ * This simple implementation of an ErrorHandler simply logs errors to the given java.util.logging.Logger at the
+ * specified fixed logging level.
  */
 public class LoggingErrorHandler implements ErrorHandler {
   private final Logger logger;

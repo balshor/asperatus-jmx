@@ -14,6 +14,19 @@ import com.bizo.asperatus.model.Unit;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Reads MetricConfigurations from JSON. This parser expects a simple map with the following keys:
+ * 
+ * <ul>
+ * <li>objectName : JMX object name to retrieve</li>
+ * <li>attribute : JMX attribute name to retrieve, value should be composite or numeric</li>
+ * <li>compositeDataKey : (optional) if the attribute is composite-valued, uses this data key to retrieve a numeric
+ * value</li>
+ * <li>metricName : Asperatus metric name</li>
+ * <li>unit : Asperatus unit of measure</li>
+ * <li>frequency : how often to pull metrics from JMX to Asperatus, in seconds</li>
+ * </ul>
+ */
 public class MetricConfigurationParser implements Supplier<List<MetricConfiguration>> {
   private final Reader reader;
 

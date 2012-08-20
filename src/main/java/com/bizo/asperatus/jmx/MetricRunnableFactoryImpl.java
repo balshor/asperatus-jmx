@@ -13,7 +13,8 @@ import com.bizo.asperatus.model.Dimension;
 import com.bizo.asperatus.tracker.MetricTracker;
 
 /**
- * Factory for MetricRunnables.
+ * This class allows setting a common MBeanServer, Dimensions, and ErrorHandler and constructing new MetricRunnables
+ * from MetricConfigurations.
  */
 public final class MetricRunnableFactoryImpl implements MetricRunnableFactory {
   private MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -25,6 +26,7 @@ public final class MetricRunnableFactoryImpl implements MetricRunnableFactory {
     this.tracker = tracker;
   }
 
+  @Override
   public MetricRunnable get(final MetricConfiguration config) {
     return new MetricRunnable(config, mBeanServer, tracker, dimensions, errorHandler);
   }
